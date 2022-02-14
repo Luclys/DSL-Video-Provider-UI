@@ -1,0 +1,51 @@
+{
+  "name": "video-provider-ui",
+  "scopeName": "source.video-provider-ui",
+  "fileTypes": [
+    ".vpu"
+  ],
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "name": "keyword.control.video-provider-ui",
+      "match": "\\b(Hello|person)\\b"
+    },
+    {
+      "name": "keyword.symbol.video-provider-ui",
+      "match": "(\\!)"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.block.video-provider-ui",
+          "begin": "/\\*",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.video-provider-ui"
+            }
+          },
+          "end": "\\*/",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.video-provider-ui"
+            }
+          }
+        },
+        {
+          "begin": "//",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.whitespace.comment.leading.video-provider-ui"
+            }
+          },
+          "end": "(?=$)",
+          "name": "comment.line.video-provider-ui"
+        }
+      ]
+    }
+  }
+}

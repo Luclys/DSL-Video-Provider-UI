@@ -1,0 +1,9 @@
+{
+    "languageId": "video-provider-ui",
+    "grammar": "src/language-server/video-provider-ui.langium",
+    "fileExtensions": [".vpu"],
+    "out": "src/language-server/generated",
+    "textMate": {
+        "out": "syntaxes/video-provider-ui.tmLanguage.json"
+    }
+}
