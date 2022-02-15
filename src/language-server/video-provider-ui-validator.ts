@@ -1,5 +1,5 @@
 import { ValidationAcceptor, ValidationCheck, ValidationRegistry } from 'langium';
-import { VideoProviderUiAstType, Person } from './generated/ast';
+import { VideoProviderUiAstType, App } from './generated/ast';
 import { VideoProviderUiServices } from './video-provider-ui-module';
 
 /**
@@ -15,7 +15,7 @@ export class VideoProviderUiValidationRegistry extends ValidationRegistry {
         super(services);
         const validator = services.validation.VideoProviderUiValidator;
         const checks: VideoProviderUiChecks = {
-            Person: validator.checkPersonStartsWithCapital
+            App: validator.checkPersonStartsWithCapital
         };
         this.register(checks, validator);
     }
@@ -26,11 +26,11 @@ export class VideoProviderUiValidationRegistry extends ValidationRegistry {
  */
 export class VideoProviderUiValidator {
 
-    checkPersonStartsWithCapital(person: Person, accept: ValidationAcceptor): void {
-        if (person.name) {
-            const firstChar = person.name.substring(0, 1);
+    checkPersonStartsWithCapital(app: App, accept: ValidationAcceptor): void {
+        if (app.name) {
+            const firstChar = app.name.substring(0, 1);
             if (firstChar.toUpperCase() !== firstChar) {
-                accept('warning', 'Person name should start with a capital.', { node: person, property: 'name' });
+                accept('warning', 'Person name should start with a capital.', { node: app, property: 'name' });
             }
         }
     }

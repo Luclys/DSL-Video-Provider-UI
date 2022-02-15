@@ -10,11 +10,11 @@
     },
     {
       "name": "keyword.control.video-provider-ui",
-      "match": "\\b(Hello|person)\\b"
+      "match": "\\b()\\b"
     },
     {
       "name": "keyword.symbol.video-provider-ui",
-      "match": "(\\!)"
+      "match": "(\\-)"
     }
   ],
   "repository": {

@@ -14,10 +14,11 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": [
-     "src/**/*.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
-     "out",
-     "node_modules"
+    "out",
+    "node_modules",
+    "templates"
   ]
 }

@@ -10,17 +10,26 @@
         "Programming Languages"
     ],
     "contributes": {
-        "languages": [{
-            "id": "video-provider-ui",
-            "aliases": ["Video Provider UI", "video-provider-ui"],
-            "extensions": [".vpu"],
-            "configuration": "./language-configuration.json"
-        }],
-        "grammars": [{
-            "language": "video-provider-ui",
-            "scopeName": "source.video-provider-ui",
-            "path": "./syntaxes/video-provider-ui.tmLanguage.json"
-        }]
+        "languages": [
+            {
+                "id": "video-provider-ui",
+                "aliases": [
+                    "Video Provider UI",
+                    "video-provider-ui"
+                ],
+                "extensions": [
+                    ".vpu"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "video-provider-ui",
+                "scopeName": "source.video-provider-ui",
+                "path": "./syntaxes/video-provider-ui.tmLanguage.json"
+            }
+        ]
     },
     "activationEvents": [
         "onLanguage:video-provider-ui"
@@ -45,11 +54,13 @@
     "dependencies": {
         "colors": "^1.4.0",
         "commander": "^8.0.0",
+        "fs-extra": "^10.0.0",
         "langium": "^0.2.0",
         "vscode-languageclient": "^7.0.0",
         "vscode-languageserver": "^7.0.0"
     },
     "devDependencies": {
+        "@types/fs-extra": "^9.0.13",
         "@types/node": "^14.17.3",
         "@types/vscode": "^1.56.0",
         "@typescript-eslint/eslint-plugin": "^4.14.1",

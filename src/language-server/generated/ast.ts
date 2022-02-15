@@ -5,49 +5,26 @@
 
 /* eslint-disable @typescript-eslint/array-type */
 /* eslint-disable @typescript-eslint/no-empty-interface */
-import { AstNode, AstReflection, Reference, isAstNode } from 'langium';
+import { AstNode, AstReflection, isAstNode } from 'langium';
 
-export interface Greeting extends AstNode {
-    readonly $container: Model;
-    person: Reference<Person>
-}
-
-export const Greeting = 'Greeting';
-
-export function isGreeting(item: unknown): item is Greeting {
-    return reflection.isInstance(item, Greeting);
-}
-
-export interface Model extends AstNode {
-    greetings: Array<Greeting>
-    persons: Array<Person>
-}
-
-export const Model = 'Model';
-
-export function isModel(item: unknown): item is Model {
-    return reflection.isInstance(item, Model);
-}
-
-export interface Person extends AstNode {
-    readonly $container: Model;
+export interface App extends AstNode {
     name: string
 }
 
-export const Person = 'Person';
+export const App = 'App';
 
-export function isPerson(item: unknown): item is Person {
-    return reflection.isInstance(item, Person);
+export function isApp(item: unknown): item is App {
+    return reflection.isInstance(item, App);
 }
 
-export type VideoProviderUiAstType = 'Greeting' | 'Model' | 'Person';
+export type VideoProviderUiAstType = 'App';
 
-export type VideoProviderUiAstReference = 'Greeting:person';
+export type VideoProviderUiAstReference = never;
 
 export class VideoProviderUiAstReflection implements AstReflection {
 
     getAllTypes(): string[] {
-        return ['Greeting', 'Model', 'Person'];
+        return ['App'];
     }
 
     isInstance(node: unknown, type: string): boolean {
@@ -67,9 +44,6 @@ export class VideoProviderUiAstReflection implements AstReflection {
 
     getReferenceType(referenceId: VideoProviderUiAstReference): string {
         switch (referenceId) {
-            case 'Greeting:person': {
-                return Person;
-            }
             default: {
                 throw new Error(`${referenceId} is not a valid reference id.`);
             }

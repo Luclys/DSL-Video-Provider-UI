@@ -25,52 +25,14 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
     {
       "$type": "ParserRule",
       "parameters": [],
-      "name": "Model",
-      "hiddenTokens": [],
-      "alternatives": {
-        "$type": "Alternatives",
-        "elements": [
-          {
-            "$type": "Assignment",
-            "feature": "persons",
-            "operator": "+=",
-            "terminal": {
-              "$type": "RuleCall",
-              "arguments": [],
-              "rule": {
-                "$refText": "Person"
-              }
-            },
-            "elements": []
-          },
-          {
-            "$type": "Assignment",
-            "feature": "greetings",
-            "operator": "+=",
-            "terminal": {
-              "$type": "RuleCall",
-              "arguments": [],
-              "rule": {
-                "$refText": "Greeting"
-              }
-            },
-            "elements": []
-          }
-        ],
-        "cardinality": "*"
-      }
-    },
-    {
-      "$type": "ParserRule",
-      "parameters": [],
-      "name": "Person",
+      "name": "App",
       "hiddenTokens": [],
       "alternatives": {
         "$type": "Group",
         "elements": [
           {
             "$type": "Keyword",
-            "value": "person",
+            "value": "-",
             "elements": []
           },
           {
@@ -84,44 +46,6 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
                 "$refText": "ID"
               }
             }
-          }
-        ]
-      }
-    },
-    {
-      "$type": "ParserRule",
-      "parameters": [],
-      "name": "Greeting",
-      "hiddenTokens": [],
-      "alternatives": {
-        "$type": "Group",
-        "elements": [
-          {
-            "$type": "Keyword",
-            "value": "Hello",
-            "elements": []
-          },
-          {
-            "$type": "Assignment",
-            "feature": "person",
-            "operator": "=",
-            "terminal": {
-              "$type": "CrossReference",
-              "type": {
-                "$refText": "Person"
-              },
-              "terminal": {
-                "$type": "RuleCall",
-                "arguments": [],
-                "rule": {
-                  "$refText": "ID"
-                }
-              }
-            }
-          },
-          {
-            "$type": "Keyword",
-            "value": "!"
           }
         ]
       }

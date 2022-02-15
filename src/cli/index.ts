@@ -1,15 +1,18 @@
 import colors from 'colors';
 import { Command } from 'commander';
 import { languageMetaData } from '../language-server/generated/module';
-import { Model } from '../language-server/generated/ast';
+import { App } from '../language-server/generated/ast';
 import { createVideoProviderUiServices } from '../language-server/video-provider-ui-module';
 import { extractAstNode } from './cli-util';
-import { generateJavaScript } from './generator';
+import { generateGrommet } from './generator';
 
 export const generateAction = async (fileName: string, opts: GenerateOptions): Promise<void> => {
-    const model = await extractAstNode<Model>(fileName, languageMetaData.fileExtensions, createVideoProviderUiServices());
-    const generatedFilePath = generateJavaScript(model, fileName, opts.destination);
-    console.log(colors.green(`JavaScript code generated successfully: ${generatedFilePath}`));
+    const model = await extractAstNode<App>(fileName, languageMetaData.fileExtensions, createVideoProviderUiServices());
+    await generateGrommet(model, fileName, opts.destination).then(() => {
+        console.log(colors.green(`Grommet code generated successfully`));
+    }).catch(err => {
+        console.error(colors.red(`Grommet code generation failure\n`), err);
+    });
 };
 
 export type GenerateOptions = {

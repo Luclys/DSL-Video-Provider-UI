@@ -1,14 +1,19 @@
 grammar VideoProviderUi
 hidden(WS, SL_COMMENT, ML_COMMENT)
 
-Model:
-    (persons+=Person | greetings+=Greeting)*;
+App: Body;
 
-Person:
-    'person' name=ID;
+Body:
+    name=ID (components+=Component)*;
 
-Greeting:
-    'Hello' person=[Person|ID] '!';
+Component:
+    (Carousel | Paragraph);
+
+Carousel:
+    'carousel';
+
+Paragraph:
+    'paragraph';
 
 terminal WS: /\s+/;
 terminal ID: /[_a-zA-Z][\w_]*/;
