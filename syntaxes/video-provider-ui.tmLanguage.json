@@ -10,11 +10,11 @@
     },
     {
       "name": "keyword.control.video-provider-ui",
-      "match": "\\b()\\b"
+      "match": "\\b(application|body|column|desktop|favicon|footer|header|mobile|page|row|tablet)\\b"
     },
     {
       "name": "keyword.symbol.video-provider-ui",
-      "match": "(\\-)"
+      "match": "(\\-|\\,|\\:|\\(|\\))"
     }
   ],
   "repository": {

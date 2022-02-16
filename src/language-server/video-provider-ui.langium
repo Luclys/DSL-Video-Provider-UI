@@ -1,19 +1,28 @@
 grammar VideoProviderUi
 hidden(WS, SL_COMMENT, ML_COMMENT)
 
-App: Body;
+App:
+    'application' name=ID
+    '-' 'favicon' favicon=STRING
+    (pages+=Page)*;
 
-Body:
-    name=ID (components+=Component)*;
+Page:
+    'page' name=ID
+    vues+=Vue (',' vues+=Vue)* ':'
+    ('header' ':' Layout)?
+    'body' ':' Layout
+    ('footer' ':' Layout)?;
+
+Layout:
+    '-' ('column' '(' columnSize+=INT (',' columnSize+=INT)* ')' type='column' | 'row' type='row') ':'
+    (components+=Component)*;
 
 Component:
-    (Carousel | Paragraph);
+    '-' componentName=ID;
 
-Carousel:
-    'carousel';
 
-Paragraph:
-    'paragraph';
+
+Vue returns string: 'desktop' | 'tablet' | 'mobile';
 
 terminal WS: /\s+/;
 terminal ID: /[_a-zA-Z][\w_]*/;

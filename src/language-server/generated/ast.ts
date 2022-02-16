@@ -8,7 +8,9 @@
 import { AstNode, AstReflection, isAstNode } from 'langium';
 
 export interface App extends AstNode {
+    favicon: string
     name: string
+    pages: Array<Page>
 }
 
 export const App = 'App';
@@ -17,14 +19,51 @@ export function isApp(item: unknown): item is App {
     return reflection.isInstance(item, App);
 }
 
-export type VideoProviderUiAstType = 'App';
+export interface Component extends AstNode {
+    readonly $container: Layout;
+    componentName: string
+}
+
+export const Component = 'Component';
+
+export function isComponent(item: unknown): item is Component {
+    return reflection.isInstance(item, Component);
+}
+
+export interface Layout extends AstNode {
+    columnSize: Array<number>
+    components: Array<Component>
+    type: 'column' | 'row'
+}
+
+export const Layout = 'Layout';
+
+export function isLayout(item: unknown): item is Layout {
+    return reflection.isInstance(item, Layout);
+}
+
+export interface Page extends AstNode {
+    readonly $container: App;
+    name: string
+    vues: Array<Vue>
+}
+
+export const Page = 'Page';
+
+export function isPage(item: unknown): item is Page {
+    return reflection.isInstance(item, Page);
+}
+
+export type Vue = 'desktop' | 'tablet' | 'mobile'
+
+export type VideoProviderUiAstType = 'App' | 'Component' | 'Layout' | 'Page';
 
 export type VideoProviderUiAstReference = never;
 
 export class VideoProviderUiAstReflection implements AstReflection {
 
     getAllTypes(): string[] {
-        return ['App'];
+        return ['App', 'Component', 'Layout', 'Page'];
     }
 
     isInstance(node: unknown, type: string): boolean {

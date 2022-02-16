@@ -1,0 +1,21 @@
+application "MyAppli"
+
+- favicon "public/favicon.ico"
+
+page "accueil"
+    desktop :
+        header:
+            - column (40, 40, 15, 5) :
+                - image // "public/1.jpg"
+                - space
+                - searchbar
+                - space
+        body :
+            - row :
+                - carousel /*:
+                    - image // ".../..."
+                    - image // ".../..."
+                    - image // ".../..."
+                    - image // ".../..."
+                - catalogue "Le catalogue" grid 4x3 // type = Grid | Horizontal | Vertical
+*/
