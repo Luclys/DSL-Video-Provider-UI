@@ -2,19 +2,20 @@ grammar VideoProviderUi
 hidden(WS, SL_COMMENT, ML_COMMENT)
 
 App:
-    'application' name=ID
-    '-' 'favicon' favicon=STRING
+    'application' name=STRING
+    'favicon' favicon=STRING
     (pages+=Page)*;
 
 Page:
-    'page' name=ID
+    'page' name=STRING
     vues+=Vue (',' vues+=Vue)* ':'
     ('header' ':' Layout)?
     'body' ':' Layout
     ('footer' ':' Layout)?;
 
 Layout:
-    '-' ('column' '(' columnSize+=INT (',' columnSize+=INT)* ')' type='column' | 'row' type='row') ':'
+    '-' ( type='column' '(' columnSize+=INT (',' columnSize+=INT)* ')'
+        | type='row' ) ':'
     (components+=Component)*;
 
 Component:

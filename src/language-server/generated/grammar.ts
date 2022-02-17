@@ -43,13 +43,9 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
               "$type": "RuleCall",
               "arguments": [],
               "rule": {
-                "$refText": "ID"
+                "$refText": "STRING"
               }
             }
-          },
-          {
-            "$type": "Keyword",
-            "value": "-"
           },
           {
             "$type": "Keyword",
@@ -105,7 +101,7 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
               "$type": "RuleCall",
               "arguments": [],
               "rule": {
-                "$refText": "ID"
+                "$refText": "STRING"
               }
             }
           },
@@ -230,8 +226,13 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
                 "$type": "Group",
                 "elements": [
                   {
-                    "$type": "Keyword",
-                    "value": "column",
+                    "$type": "Assignment",
+                    "feature": "type",
+                    "operator": "=",
+                    "terminal": {
+                      "$type": "Keyword",
+                      "value": "column"
+                    },
                     "elements": []
                   },
                   {
@@ -276,36 +277,18 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
                   {
                     "$type": "Keyword",
                     "value": ")"
-                  },
-                  {
-                    "$type": "Assignment",
-                    "feature": "type",
-                    "operator": "=",
-                    "terminal": {
-                      "$type": "Keyword",
-                      "value": "column"
-                    }
                   }
                 ]
               },
               {
-                "$type": "Group",
-                "elements": [
-                  {
-                    "$type": "Keyword",
-                    "value": "row",
-                    "elements": []
-                  },
-                  {
-                    "$type": "Assignment",
-                    "feature": "type",
-                    "operator": "=",
-                    "terminal": {
-                      "$type": "Keyword",
-                      "value": "row"
-                    }
-                  }
-                ]
+                "$type": "Assignment",
+                "feature": "type",
+                "operator": "=",
+                "terminal": {
+                  "$type": "Keyword",
+                  "value": "row"
+                },
+                "elements": []
               }
             ]
           },
@@ -351,7 +334,7 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
               "$type": "RuleCall",
               "arguments": [],
               "rule": {
-                "$refText": "ID"
+                "$refText": "STRING"
               }
             }
           }

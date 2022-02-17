@@ -1,14 +1,13 @@
 application "MyAppli"
-
-- favicon "public/favicon.ico"
+favicon "public/favicon.ico"
 
 page "accueil"
     desktop :
-        header:
+        header :
             - column (40, 40, 15, 5) :
                 - image // "public/1.jpg"
                 - space
-                - searchbar
+                - searchBar
                 - space
         body :
             - row :
