@@ -11,10 +11,6 @@ page "accueil"
                 - space
         body :
             - row :
-                - carousel /*:
-                    - image // ".../..."
-                    - image // ".../..."
-                    - image // ".../..."
-                    - image // ".../..."
-                - catalogue "Le catalogue" grid 4x3 // type = Grid | Horizontal | Vertical
-*/
+                - carousel 5
+                - catalog "Le catalogue" grid 4 x 3 // type = Grid | Horizontal | Vertical
+                - catalog "Horizon" horizontal 4

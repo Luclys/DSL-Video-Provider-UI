@@ -10,7 +10,7 @@
     },
     {
       "name": "keyword.control.video-provider-ui",
-      "match": "\\b(application|body|column|desktop|favicon|footer|header|mobile|page|row|tablet)\\b"
+      "match": "\\b(application|body|carousel|catalog|chat|column|comment|desktop|favicon|footer|grid|header|horizontal|image|mobile|page|row|searchBar|space|tablet|vertical|video|x)\\b"
     },
     {
       "name": "keyword.symbol.video-provider-ui",

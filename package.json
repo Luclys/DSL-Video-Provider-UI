@@ -56,6 +56,7 @@
         "commander": "^8.0.0",
         "fs-extra": "^10.0.0",
         "langium": "^0.2.0",
+        "stream-replace": "^1.0.0",
         "vscode-languageclient": "^7.0.0",
         "vscode-languageserver": "^7.0.0"
     },

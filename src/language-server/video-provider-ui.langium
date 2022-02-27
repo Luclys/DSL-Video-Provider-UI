@@ -8,10 +8,10 @@ App:
 
 Page:
     'page' name=STRING
-    vues+=Vue (',' vues+=Vue)* ':'
-    ('header' ':' Layout)?
-    'body' ':' Layout
-    ('footer' ':' Layout)?;
+    views+=View (',' views+=View)* ':'
+    ('header' ':' header=Layout)?
+    'body' ':' body=Layout
+    ('footer' ':' footer=Layout)?;
 
 Layout:
     '-' ( type='column' '(' columnSize+=INT (',' columnSize+=INT)* ')'
@@ -19,11 +19,27 @@ Layout:
     (components+=Component)*;
 
 Component:
-    '-' componentName=ID;
+    '-' (Carousel | Catalog | Chat | Comment | Searchbar | Space | Media);
 
 
+Carousel: type='carousel' qtyElements=INT;
 
-Vue returns string: 'desktop' | 'tablet' | 'mobile';
+Catalog:
+    type='catalog' title=STRING
+    ((layout='horizontal' | layout='vertical') size=INT
+     | layout='grid' sizeX=INT 'x' sizeY=INT);
+
+Chat: type='chat';
+
+Comment: type='comment';
+
+Searchbar: type='searchBar';
+
+Space: type='space';
+
+Media: (type='image' | type='video');
+
+View returns string: 'desktop' | 'tablet' | 'mobile';
 
 terminal WS: /\s+/;
 terminal ID: /[_a-zA-Z][\w_]*/;

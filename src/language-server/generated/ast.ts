@@ -21,7 +21,6 @@ export function isApp(item: unknown): item is App {
 
 export interface Component extends AstNode {
     readonly $container: Layout;
-    componentName: string
 }
 
 export const Component = 'Component';
@@ -31,6 +30,7 @@ export function isComponent(item: unknown): item is Component {
 }
 
 export interface Layout extends AstNode {
+    readonly $container: Page;
     columnSize: Array<number>
     components: Array<Component>
     type: 'column' | 'row'
@@ -44,8 +44,11 @@ export function isLayout(item: unknown): item is Layout {
 
 export interface Page extends AstNode {
     readonly $container: App;
+    body: Layout
+    footer: Layout
+    header: Layout
     name: string
-    vues: Array<Vue>
+    views: Array<View>
 }
 
 export const Page = 'Page';
@@ -54,16 +57,92 @@ export function isPage(item: unknown): item is Page {
     return reflection.isInstance(item, Page);
 }
 
-export type Vue = 'desktop' | 'tablet' | 'mobile'
+export interface Carousel extends Component {
+    qtyElements: number
+    type: 'carousel'
+}
 
-export type VideoProviderUiAstType = 'App' | 'Component' | 'Layout' | 'Page';
+export const Carousel = 'Carousel';
+
+export function isCarousel(item: unknown): item is Carousel {
+    return reflection.isInstance(item, Carousel);
+}
+
+export interface Catalog extends Component {
+    layout: 'grid' | 'horizontal' | 'vertical'
+    size: number
+    sizeX: number
+    sizeY: number
+    title: string
+    type: 'catalog'
+}
+
+export const Catalog = 'Catalog';
+
+export function isCatalog(item: unknown): item is Catalog {
+    return reflection.isInstance(item, Catalog);
+}
+
+export interface Chat extends Component {
+    type: 'chat'
+}
+
+export const Chat = 'Chat';
+
+export function isChat(item: unknown): item is Chat {
+    return reflection.isInstance(item, Chat);
+}
+
+export interface Comment extends Component {
+    type: 'comment'
+}
+
+export const Comment = 'Comment';
+
+export function isComment(item: unknown): item is Comment {
+    return reflection.isInstance(item, Comment);
+}
+
+export interface Media extends Component {
+    type: 'image' | 'video'
+}
+
+export const Media = 'Media';
+
+export function isMedia(item: unknown): item is Media {
+    return reflection.isInstance(item, Media);
+}
+
+export interface Searchbar extends Component {
+    type: 'searchBar'
+}
+
+export const Searchbar = 'Searchbar';
+
+export function isSearchbar(item: unknown): item is Searchbar {
+    return reflection.isInstance(item, Searchbar);
+}
+
+export interface Space extends Component {
+    type: 'space'
+}
+
+export const Space = 'Space';
+
+export function isSpace(item: unknown): item is Space {
+    return reflection.isInstance(item, Space);
+}
+
+export type View = 'desktop' | 'tablet' | 'mobile'
+
+export type VideoProviderUiAstType = 'App' | 'Component' | 'Layout' | 'Page' | 'Carousel' | 'Catalog' | 'Chat' | 'Comment' | 'Media' | 'Searchbar' | 'Space';
 
 export type VideoProviderUiAstReference = never;
 
 export class VideoProviderUiAstReflection implements AstReflection {
 
     getAllTypes(): string[] {
-        return ['App', 'Component', 'Layout', 'Page'];
+        return ['App', 'Component', 'Layout', 'Page', 'Carousel', 'Catalog', 'Chat', 'Comment', 'Media', 'Searchbar', 'Space'];
     }
 
     isInstance(node: unknown, type: string): boolean {
@@ -75,6 +154,15 @@ export class VideoProviderUiAstReflection implements AstReflection {
             return true;
         }
         switch (subtype) {
+            case Carousel:
+            case Catalog:
+            case Chat:
+            case Comment:
+            case Media:
+            case Searchbar:
+            case Space: {
+                return this.isSubtype(Component, supertype);
+            }
             default: {
                 return false;
             }
