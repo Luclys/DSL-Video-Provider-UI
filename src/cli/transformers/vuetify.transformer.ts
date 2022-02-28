@@ -1,25 +1,20 @@
 import * as fs from 'fs';
 import fse from 'fs-extra';
 import { join } from 'path';
-import { App, Header, /*HeaderAttributes,*/ Page } from '../../language-server/generated/ast';
+import { App, Header, Page } from '../../language-server/generated/ast';
 import replaceStream from 'replacestream';
 import stream from "node:stream";
 import * as util from "util";
+import { IHeaderAttributes, ILink } from "./interfaces";
 
-interface IHeaderAttributes {
-    'logo'?: boolean;
-    'searchBar'?: boolean;
-    'darkmodeBtn'?: boolean;
-    'userAvatar'?: boolean;
-    'title'?: boolean;
-    'tableOfContent'?: boolean;
-}
+
 
 export class VuetifyTransformer {
 
     private readonly generatedSourceDestination: string;
     private readonly templatesVuetifyLocation: string;
     private projectName: string = "";
+    private pagePaths: ILink[] = [];
 
     constructor(private readonly templatesRootLocation: string, private readonly generatedRootDestination: string) {
         this.generatedSourceDestination = join(this.generatedRootDestination, '/src');
@@ -45,13 +40,14 @@ export class VuetifyTransformer {
 
         this.generateHeader(app.header);
 
+        this.pagePaths = this.extractPagesPath(app.pages);
+
         for (const page of app.pages) {
             this.generatePage(page);
         }
     }
 
     private generateHeader(header: Header) {
-        // @ts-ignore
         const attributes: IHeaderAttributes = this.extractHeaderAttributes(header);
         const templatePath = join(this.templatesVuetifyLocation, '/src/components/Header.vue');
         const destinationPath = join(this.generatedSourceDestination, '/components/Header.vue');
@@ -86,5 +82,10 @@ export class VuetifyTransformer {
 
     private generatePage(page: Page): void {
 
+    }
+
+    private extractPagesPath(pages: Array<Page>): ILink[] {
+        //TODO escape chars + edit link
+        return pages.map(page => {return {"name": page.name, "link": page.name}});
     }
 }
