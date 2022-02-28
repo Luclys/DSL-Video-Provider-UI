@@ -1,16 +1,18 @@
 application "MyAppli"
 favicon "public/favicon.ico"
 
+header : {
+    logo true
+    title false
+    tableOfContent true
+    searchBar true
+    darkmodeBtn false
+    userAvatar false
+}
+
 page "accueil"
     desktop :
-        header :
-            - column (40, 40, 15, 5) :
-                - image // "public/1.jpg"
-                - space
-                - searchBar
-                - space
-        body :
-            - row :
-                - carousel 5
-                - catalog "Le catalogue" grid 4 x 3 // type = Grid | Horizontal | Vertical
-                - catalog "Horizon" horizontal 4
+        - row :
+            - carousel 5
+            - catalog "Le catalogue" grid 4 x 3 // type = Grid | Horizontal | Vertical
+            - catalog "Horizon" horizontal 4

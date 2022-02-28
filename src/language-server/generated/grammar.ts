@@ -65,6 +65,18 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
           },
           {
             "$type": "Assignment",
+            "feature": "header",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "arguments": [],
+              "rule": {
+                "$refText": "Header"
+              }
+            }
+          },
+          {
+            "$type": "Assignment",
             "feature": "pages",
             "operator": "+=",
             "terminal": {
@@ -76,6 +88,33 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
             },
             "elements": [],
             "cardinality": "*"
+          },
+          {
+            "$type": "Group",
+            "elements": [
+              {
+                "$type": "Keyword",
+                "value": "footer",
+                "elements": []
+              },
+              {
+                "$type": "Keyword",
+                "value": ":"
+              },
+              {
+                "$type": "Assignment",
+                "feature": "footer",
+                "operator": "=",
+                "terminal": {
+                  "$type": "RuleCall",
+                  "arguments": [],
+                  "rule": {
+                    "$refText": "Layout"
+                  }
+                }
+              }
+            ],
+            "cardinality": "?"
           }
         ]
       }
@@ -145,41 +184,6 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
             "value": ":"
           },
           {
-            "$type": "Group",
-            "elements": [
-              {
-                "$type": "Keyword",
-                "value": "header",
-                "elements": []
-              },
-              {
-                "$type": "Keyword",
-                "value": ":"
-              },
-              {
-                "$type": "Assignment",
-                "feature": "header",
-                "operator": "=",
-                "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "Layout"
-                  }
-                }
-              }
-            ],
-            "cardinality": "?"
-          },
-          {
-            "$type": "Keyword",
-            "value": "body"
-          },
-          {
-            "$type": "Keyword",
-            "value": ":"
-          },
-          {
             "$type": "Assignment",
             "feature": "body",
             "operator": "=",
@@ -190,33 +194,136 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
                 "$refText": "Layout"
               }
             }
+          }
+        ]
+      }
+    },
+    {
+      "$type": "ParserRule",
+      "parameters": [],
+      "name": "Header",
+      "hiddenTokens": [],
+      "alternatives": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "header",
+            "elements": []
           },
           {
-            "$type": "Group",
+            "$type": "Keyword",
+            "value": ":"
+          },
+          {
+            "$type": "Keyword",
+            "value": "{"
+          },
+          {
+            "$type": "Assignment",
+            "feature": "attributes",
+            "operator": "+=",
+            "terminal": {
+              "$type": "RuleCall",
+              "arguments": [],
+              "rule": {
+                "$refText": "HeaderAttributes"
+              }
+            },
+            "elements": [],
+            "cardinality": "*"
+          },
+          {
+            "$type": "Keyword",
+            "value": "}"
+          }
+        ]
+      }
+    },
+    {
+      "$type": "ParserRule",
+      "parameters": [],
+      "name": "HeaderAttributes",
+      "hiddenTokens": [],
+      "alternatives": {
+        "$type": "Group",
+        "elements": [
+          {
+            "$type": "Alternatives",
             "elements": [
               {
-                "$type": "Keyword",
-                "value": "footer",
+                "$type": "Assignment",
+                "feature": "name",
+                "operator": "=",
+                "terminal": {
+                  "$type": "Keyword",
+                  "value": "logo"
+                },
                 "elements": []
               },
               {
-                "$type": "Keyword",
-                "value": ":"
+                "$type": "Assignment",
+                "feature": "name",
+                "operator": "=",
+                "terminal": {
+                  "$type": "Keyword",
+                  "value": "searchBar"
+                },
+                "elements": []
               },
               {
                 "$type": "Assignment",
-                "feature": "footer",
+                "feature": "name",
                 "operator": "=",
                 "terminal": {
-                  "$type": "RuleCall",
-                  "arguments": [],
-                  "rule": {
-                    "$refText": "Layout"
-                  }
-                }
+                  "$type": "Keyword",
+                  "value": "darkmodeBtn"
+                },
+                "elements": []
+              },
+              {
+                "$type": "Assignment",
+                "feature": "name",
+                "operator": "=",
+                "terminal": {
+                  "$type": "Keyword",
+                  "value": "userAvatar"
+                },
+                "elements": []
+              },
+              {
+                "$type": "Assignment",
+                "feature": "name",
+                "operator": "=",
+                "terminal": {
+                  "$type": "Keyword",
+                  "value": "tableOfContent"
+                },
+                "elements": []
+              },
+              {
+                "$type": "Assignment",
+                "feature": "name",
+                "operator": "=",
+                "terminal": {
+                  "$type": "Keyword",
+                  "value": "title"
+                },
+                "elements": []
               }
-            ],
-            "cardinality": "?"
+            ]
+          },
+          {
+            "$type": "Assignment",
+            "feature": "value",
+            "operator": "=",
+            "terminal": {
+              "$type": "RuleCall",
+              "arguments": [],
+              "rule": {
+                "$refText": "Boolean"
+              }
+            }
           }
         ]
       }
@@ -373,14 +480,6 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
                 "arguments": [],
                 "rule": {
                   "$refText": "Comment"
-                },
-                "elements": []
-              },
-              {
-                "$type": "RuleCall",
-                "arguments": [],
-                "rule": {
-                  "$refText": "Searchbar"
                 },
                 "elements": []
               },
@@ -678,6 +777,28 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
           {
             "$type": "Keyword",
             "value": "mobile",
+            "elements": []
+          }
+        ]
+      }
+    },
+    {
+      "$type": "ParserRule",
+      "parameters": [],
+      "name": "Boolean",
+      "hiddenTokens": [],
+      "type": "string",
+      "alternatives": {
+        "$type": "Alternatives",
+        "elements": [
+          {
+            "$type": "Keyword",
+            "value": "true",
+            "elements": []
+          },
+          {
+            "$type": "Keyword",
+            "value": "false",
             "elements": []
           }
         ]

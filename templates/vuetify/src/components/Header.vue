@@ -2,35 +2,39 @@
   <div>
     <v-toolbar
         dark
-        prominent
         src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
     >
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-
-      <v-navigation-drawer permanent>
-        <v-list
-            dense
-            nav
-        >
-          <v-list-item
-              v-for="item in items"
-              :key="item.title"
-              link
-          >
-            <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-icon>
-
-            <v-list-item-content>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
+      <v-menu class="hidden-md-and-up">
+        <v-toolbar-side-icon slot="activator"></v-toolbar-side-icon>
+        <v-list>
+          <v-list-tile v-for="item in menu">
+            <v-list-tile-content>
+              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
         </v-list>
-      </v-navigation-drawer>
+      </v-menu>
 
-      <v-toolbar-title>Vuetify</v-toolbar-title>
+      %TitleComponent%<v-toolbar-title>%Title%</v-toolbar-title>%!TitleComponent%
 
       <v-spacer></v-spacer>
+
+      <v-toolbar-items class="hidden-sm-and-down">
+        <v-btn
+            v-for="item in menu"
+            :to="item.link"
+            flat
+        >{{ item.title }}</v-btn>
+      </v-toolbar-items>
+
+      <v-spacer></v-spacer>
+      %DarkmodeComponent%
+      <v-switch
+          :value="darkmode"
+          @change="toggleDarkMode"
+      >
+      </v-switch>
+      %!DarkmodeComponent%
 
       <v-btn icon>
         <v-icon>mdi-export</v-icon>
@@ -41,7 +45,7 @@
 
 <script>
 export default {
-  name: 'TodoTaMere',
+  name: 'AppHeader',
   data () {
     return {
       items: [

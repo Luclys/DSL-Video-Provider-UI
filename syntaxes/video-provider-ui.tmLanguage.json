@@ -10,11 +10,11 @@
     },
     {
       "name": "keyword.control.video-provider-ui",
-      "match": "\\b(application|body|carousel|catalog|chat|column|comment|desktop|favicon|footer|grid|header|horizontal|image|mobile|page|row|searchBar|space|tablet|vertical|video|x)\\b"
+      "match": "\\b(application|carousel|catalog|chat|column|comment|darkmodeBtn|desktop|false|favicon|footer|grid|header|horizontal|image|logo|mobile|page|row|searchBar|space|tableOfContent|tablet|title|true|userAvatar|vertical|video|x)\\b"
     },
     {
       "name": "keyword.symbol.video-provider-ui",
-      "match": "(\\-|\\,|\\:|\\(|\\))"
+      "match": "(\\-|\\,|\\:|\\(|\\)|\\{|\\})"
     }
   ],
   "repository": {

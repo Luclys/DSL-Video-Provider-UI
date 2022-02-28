@@ -4,14 +4,22 @@ hidden(WS, SL_COMMENT, ML_COMMENT)
 App:
     'application' name=STRING
     'favicon' favicon=STRING
-    (pages+=Page)*;
+    header=Header
+    (pages+=Page)*
+    ('footer' ':' footer=Layout)?;
 
 Page:
     'page' name=STRING
     views+=View (',' views+=View)* ':'
-    ('header' ':' header=Layout)?
-    'body' ':' body=Layout
-    ('footer' ':' footer=Layout)?;
+    body=Layout;
+
+Header:
+    'header' ':' '{'
+    (attributes+=HeaderAttributes)*
+    '}';
+
+HeaderAttributes:
+    (name='logo' | name='searchBar' | name='darkmodeBtn' | name='userAvatar' | name='tableOfContent' | name='title') value=Boolean;
 
 Layout:
     '-' ( type='column' '(' columnSize+=INT (',' columnSize+=INT)* ')'
@@ -19,7 +27,7 @@ Layout:
     (components+=Component)*;
 
 Component:
-    '-' (Carousel | Catalog | Chat | Comment | Searchbar | Space | Media);
+    '-' (Carousel | Catalog | Chat | Comment | Space | Media);
 
 
 Carousel: type='carousel' qtyElements=INT;
@@ -40,6 +48,7 @@ Space: type='space';
 Media: (type='image' | type='video');
 
 View returns string: 'desktop' | 'tablet' | 'mobile';
+Boolean returns string: 'true' | 'false';
 
 terminal WS: /\s+/;
 terminal ID: /[_a-zA-Z][\w_]*/;

@@ -9,6 +9,8 @@ import { AstNode, AstReflection, isAstNode } from 'langium';
 
 export interface App extends AstNode {
     favicon: string
+    footer: Layout
+    header: Header
     name: string
     pages: Array<Page>
 }
@@ -29,8 +31,31 @@ export function isComponent(item: unknown): item is Component {
     return reflection.isInstance(item, Component);
 }
 
+export interface Header extends AstNode {
+    readonly $container: App;
+    attributes: Array<HeaderAttributes>
+}
+
+export const Header = 'Header';
+
+export function isHeader(item: unknown): item is Header {
+    return reflection.isInstance(item, Header);
+}
+
+export interface HeaderAttributes extends AstNode {
+    readonly $container: Header;
+    name: 'logo' | 'searchBar' | 'darkmodeBtn' | 'userAvatar' | 'tableOfContent' | 'title'
+    value: Boolean
+}
+
+export const HeaderAttributes = 'HeaderAttributes';
+
+export function isHeaderAttributes(item: unknown): item is HeaderAttributes {
+    return reflection.isInstance(item, HeaderAttributes);
+}
+
 export interface Layout extends AstNode {
-    readonly $container: Page;
+    readonly $container: App | Page;
     columnSize: Array<number>
     components: Array<Component>
     type: 'column' | 'row'
@@ -45,8 +70,6 @@ export function isLayout(item: unknown): item is Layout {
 export interface Page extends AstNode {
     readonly $container: App;
     body: Layout
-    footer: Layout
-    header: Layout
     name: string
     views: Array<View>
 }
@@ -55,6 +78,16 @@ export const Page = 'Page';
 
 export function isPage(item: unknown): item is Page {
     return reflection.isInstance(item, Page);
+}
+
+export interface Searchbar extends AstNode {
+    type: 'searchBar'
+}
+
+export const Searchbar = 'Searchbar';
+
+export function isSearchbar(item: unknown): item is Searchbar {
+    return reflection.isInstance(item, Searchbar);
 }
 
 export interface Carousel extends Component {
@@ -113,16 +146,6 @@ export function isMedia(item: unknown): item is Media {
     return reflection.isInstance(item, Media);
 }
 
-export interface Searchbar extends Component {
-    type: 'searchBar'
-}
-
-export const Searchbar = 'Searchbar';
-
-export function isSearchbar(item: unknown): item is Searchbar {
-    return reflection.isInstance(item, Searchbar);
-}
-
 export interface Space extends Component {
     type: 'space'
 }
@@ -135,14 +158,16 @@ export function isSpace(item: unknown): item is Space {
 
 export type View = 'desktop' | 'tablet' | 'mobile'
 
-export type VideoProviderUiAstType = 'App' | 'Component' | 'Layout' | 'Page' | 'Carousel' | 'Catalog' | 'Chat' | 'Comment' | 'Media' | 'Searchbar' | 'Space';
+export type Boolean = 'true' | 'false'
+
+export type VideoProviderUiAstType = 'App' | 'Component' | 'Header' | 'HeaderAttributes' | 'Layout' | 'Page' | 'Searchbar' | 'Carousel' | 'Catalog' | 'Chat' | 'Comment' | 'Media' | 'Space';
 
 export type VideoProviderUiAstReference = never;
 
 export class VideoProviderUiAstReflection implements AstReflection {
 
     getAllTypes(): string[] {
-        return ['App', 'Component', 'Layout', 'Page', 'Carousel', 'Catalog', 'Chat', 'Comment', 'Media', 'Searchbar', 'Space'];
+        return ['App', 'Component', 'Header', 'HeaderAttributes', 'Layout', 'Page', 'Searchbar', 'Carousel', 'Catalog', 'Chat', 'Comment', 'Media', 'Space'];
     }
 
     isInstance(node: unknown, type: string): boolean {
@@ -159,7 +184,6 @@ export class VideoProviderUiAstReflection implements AstReflection {
             case Chat:
             case Comment:
             case Media:
-            case Searchbar:
             case Space: {
                 return this.isSubtype(Component, supertype);
             }
