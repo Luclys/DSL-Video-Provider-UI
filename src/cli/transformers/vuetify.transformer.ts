@@ -38,9 +38,9 @@ export class VuetifyTransformer {
             fs.mkdirSync(componentsFolder, {recursive: true});
         }
 
-        this.generateHeader(app.header);
-
         this.pagePaths = this.extractPagesPath(app.pages);
+
+        this.generateHeader(app.header);
 
         for (const page of app.pages) {
             this.generatePage(page);
@@ -59,9 +59,13 @@ export class VuetifyTransformer {
                 attributes.title && replaceStream(/%!?TitleComponent%/g, ''),
                 attributes.title && replaceStream(/%Title%/g, this.projectName),
                 !attributes.title && replaceStream(/%TitleComponent%.*%!TitleComponent%/g, ''),
+
                 attributes.darkmodeBtn && replaceStream(/%!?DarkmodeComponent%/g, ''),
                 !attributes.darkmodeBtn && replaceStream(/%DarkmodeComponent%.*%!DarkmodeComponent%/g, ''),
                 /** Loïc */
+                attributes.tableOfContent && replaceStream(/%!?ToCComponent%/g, ''),
+                attributes.tableOfContent && replaceStream(/%ToCList%/g, JSON.stringify(this.pagePaths) ),
+                !attributes.tableOfContent && replaceStream(/%ToCComponent%.*%!ToCComponent%/g, ''),
 
                 /** Zaïd */
 
@@ -86,6 +90,6 @@ export class VuetifyTransformer {
 
     private extractPagesPath(pages: Array<Page>): ILink[] {
         //TODO escape chars + edit link
-        return pages.map(page => {return {"name": page.name, "link": page.name}});
+        return pages.map(page => {return {"title": page.name, "link": page.name}});
     }
 }

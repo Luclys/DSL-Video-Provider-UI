@@ -19,16 +19,18 @@
 
       <v-spacer></v-spacer>
 
+      %ToCComponent%
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn
-            v-for="item in menu"
+            v-for='item in %ToCList%'
             :to="item.link"
             flat
         >{{ item.title }}</v-btn>
       </v-toolbar-items>
+      %!ToCComponent%
 
-      <v-spacer></v-spacer>
       %DarkmodeComponent%
+      <v-spacer></v-spacer>
       <v-switch
           :value="darkmode"
           @change="toggleDarkMode"
