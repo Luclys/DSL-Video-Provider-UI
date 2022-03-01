@@ -27,10 +27,10 @@ Layout:
     (components+=Component)*;
 
 Component:
-    '-' (Carousel | Catalog | Chat | Comment | Space | Media);
+    '-' (Carousel | Catalog | Chat | Comment | Player);
 
 
-Carousel: type='carousel' qtyElements=INT;
+Carousel: type='carousel' size=INT;
 
 Catalog:
     type='catalog' title=STRING
@@ -41,11 +41,7 @@ Chat: type='chat';
 
 Comment: type='comment';
 
-Searchbar: type='searchBar';
-
-Space: type='space';
-
-Media: (type='image' | type='video');
+Player: type='player';
 
 View returns string: 'desktop' | 'tablet' | 'mobile';
 Boolean returns string: 'true' | 'false';

@@ -50,7 +50,7 @@ export default {
     backgroundColor: {
       immediate: true,
       deep: true,
-      handler(newVal, oldvAL) {
+      handler(newVal) {
         var chat = document.querySelector(":root");
         chat.style.setProperty("--chat-background-color", newVal);
         this.update();

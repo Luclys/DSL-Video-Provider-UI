@@ -5,7 +5,6 @@
         src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
     >
       <v-menu class="hidden-md-and-up">
-        <v-app-bar-nav-icon slot="activator"></v-app-bar-nav-icon>
         <v-list>
           <v-list-tile v-for='item in %ToCList%' :key="item.title">
             <v-list-tile-content>
@@ -52,8 +51,6 @@
       %DarkmodeComponent%
       <v-spacer></v-spacer>
       <v-switch
-          :value="darkmode"
-          @change="toggleDarkMode"
           v-model="$vuetify.theme.dark"
           hint="This toggles the global state of the Vuetify theme"
           label="Vuetify Theme Dark"

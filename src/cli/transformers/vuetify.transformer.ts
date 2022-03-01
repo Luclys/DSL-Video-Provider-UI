@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import fse from 'fs-extra';
 import { join } from 'path';
-import { App, Header, Page } from '../../language-server/generated/ast';
+import { App, Component, Header, isCarousel, isCatalog, Page } from '../../language-server/generated/ast';
 import replaceStream from 'replacestream';
 import stream from "node:stream";
 import * as util from "util";
@@ -118,12 +118,12 @@ export class VuetifyTransformer {
   <v-main>
     <v-container>
       ${page.body.type === 'row' ? '<v-row>' : '<v-col>'}
-${childrenComponents.map(name => `        <${name}/>`).join('\n')}
+${this.componentClassImport(page.body.components)}
       ${page.body.type === 'row' ? '</v-row>' : '</v-col>'}
     </v-container>
   </v-main>
 </template>`;
-// ${this.componentClassImport(page.body.components)}
+
         if (!fs.existsSync(destinationPath)) {
             const distinctChildrenComponents = [...new Set(childrenComponents)];
             const script =
@@ -160,15 +160,24 @@ ${distinctChildrenComponents.map(name => `    ${name},`).join('\n')}
             return {"title": page.name, "link": page.name}
         });
     }
-/*
+
     private componentClassImport(components: Array<Component>): string {
-        const list = [];
+        const list: string[] = [];
         components.forEach(component => {
-            switch ()
+            let row = `        <${component.$type} `
+            if (isCatalog(component) || isCarousel(component)) {
+                row += `:size="${component.size || 10}" `;
+            }
+
+            if (isCatalog(component)) {
+                row += `title="${component.title}" `;
+            }
+            row += '/>';
+            list.push(row);
         })
-        return childrenComponents.map(name => `        <${name}/>`).join('\n')
+        return list.join('\n');
     }
-*/
+
     private generateRouter() {
         const content =
             `${this.pagePaths.map(page => `import ${page.title} from './pages/${capitalize(page.title)}';`).join('\n')}

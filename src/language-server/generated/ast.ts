@@ -80,18 +80,8 @@ export function isPage(item: unknown): item is Page {
     return reflection.isInstance(item, Page);
 }
 
-export interface Searchbar extends AstNode {
-    type: 'searchBar'
-}
-
-export const Searchbar = 'Searchbar';
-
-export function isSearchbar(item: unknown): item is Searchbar {
-    return reflection.isInstance(item, Searchbar);
-}
-
 export interface Carousel extends Component {
-    qtyElements: number
+    size: number
     type: 'carousel'
 }
 
@@ -136,38 +126,28 @@ export function isComment(item: unknown): item is Comment {
     return reflection.isInstance(item, Comment);
 }
 
-export interface Media extends Component {
-    type: 'image' | 'video'
+export interface Player extends Component {
+    type: 'player'
 }
 
-export const Media = 'Media';
+export const Player = 'Player';
 
-export function isMedia(item: unknown): item is Media {
-    return reflection.isInstance(item, Media);
-}
-
-export interface Space extends Component {
-    type: 'space'
-}
-
-export const Space = 'Space';
-
-export function isSpace(item: unknown): item is Space {
-    return reflection.isInstance(item, Space);
+export function isPlayer(item: unknown): item is Player {
+    return reflection.isInstance(item, Player);
 }
 
 export type View = 'desktop' | 'tablet' | 'mobile'
 
 export type Boolean = 'true' | 'false'
 
-export type VideoProviderUiAstType = 'App' | 'Component' | 'Header' | 'HeaderAttributes' | 'Layout' | 'Page' | 'Searchbar' | 'Carousel' | 'Catalog' | 'Chat' | 'Comment' | 'Media' | 'Space';
+export type VideoProviderUiAstType = 'App' | 'Component' | 'Header' | 'HeaderAttributes' | 'Layout' | 'Page' | 'Carousel' | 'Catalog' | 'Chat' | 'Comment' | 'Player';
 
 export type VideoProviderUiAstReference = never;
 
 export class VideoProviderUiAstReflection implements AstReflection {
 
     getAllTypes(): string[] {
-        return ['App', 'Component', 'Header', 'HeaderAttributes', 'Layout', 'Page', 'Searchbar', 'Carousel', 'Catalog', 'Chat', 'Comment', 'Media', 'Space'];
+        return ['App', 'Component', 'Header', 'HeaderAttributes', 'Layout', 'Page', 'Carousel', 'Catalog', 'Chat', 'Comment', 'Player'];
     }
 
     isInstance(node: unknown, type: string): boolean {
@@ -183,8 +163,7 @@ export class VideoProviderUiAstReflection implements AstReflection {
             case Catalog:
             case Chat:
             case Comment:
-            case Media:
-            case Space: {
+            case Player: {
                 return this.isSubtype(Component, supertype);
             }
             default: {

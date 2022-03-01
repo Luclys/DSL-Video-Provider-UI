@@ -45,7 +45,10 @@ export default {
       type: String,
       required: true,
     },
-    size: Number,
+    size: {
+      type: Number,
+      required: true,
+    },
   },
 };
 </script>

@@ -487,15 +487,7 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
                 "$type": "RuleCall",
                 "arguments": [],
                 "rule": {
-                  "$refText": "Space"
-                },
-                "elements": []
-              },
-              {
-                "$type": "RuleCall",
-                "arguments": [],
-                "rule": {
-                  "$refText": "Media"
+                  "$refText": "Player"
                 },
                 "elements": []
               }
@@ -524,7 +516,7 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
           },
           {
             "$type": "Assignment",
-            "feature": "qtyElements",
+            "feature": "size",
             "operator": "=",
             "terminal": {
               "$type": "RuleCall",
@@ -695,7 +687,7 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
     {
       "$type": "ParserRule",
       "parameters": [],
-      "name": "Searchbar",
+      "name": "Player",
       "hiddenTokens": [],
       "alternatives": {
         "$type": "Assignment",
@@ -703,56 +695,9 @@ export const grammar = (): Grammar => loaded || (loaded = loadGrammar(`{
         "operator": "=",
         "terminal": {
           "$type": "Keyword",
-          "value": "searchBar"
+          "value": "player"
         },
         "elements": []
-      }
-    },
-    {
-      "$type": "ParserRule",
-      "parameters": [],
-      "name": "Space",
-      "hiddenTokens": [],
-      "alternatives": {
-        "$type": "Assignment",
-        "feature": "type",
-        "operator": "=",
-        "terminal": {
-          "$type": "Keyword",
-          "value": "space"
-        },
-        "elements": []
-      }
-    },
-    {
-      "$type": "ParserRule",
-      "parameters": [],
-      "name": "Media",
-      "hiddenTokens": [],
-      "alternatives": {
-        "$type": "Alternatives",
-        "elements": [
-          {
-            "$type": "Assignment",
-            "feature": "type",
-            "operator": "=",
-            "terminal": {
-              "$type": "Keyword",
-              "value": "image"
-            },
-            "elements": []
-          },
-          {
-            "$type": "Assignment",
-            "feature": "type",
-            "operator": "=",
-            "terminal": {
-              "$type": "Keyword",
-              "value": "video"
-            },
-            "elements": []
-          }
-        ]
       }
     },
     {
