@@ -56,18 +56,25 @@ export class VuetifyTransformer {
             const writeStream = fs.createWriteStream(destinationPath);
 
             const pipes = [
-                attributes.title && replaceStream(/%!?TitleComponent%/g, ''),
-                attributes.title && replaceStream(/%Title%/g, this.projectName),
-                !attributes.title && replaceStream(/%TitleComponent%.*%!TitleComponent%/g, ''),
+                attributes.title && replaceStream(/%!?TitleComponent%/sg, ''),
+                attributes.title && replaceStream(/%Title%/sg, this.projectName),
+                !attributes.title && replaceStream(/%TitleComponent%.*%!TitleComponent%/sg, ''),
 
-                attributes.darkmodeBtn && replaceStream(/%!?DarkmodeComponent%/g, ''),
-                !attributes.darkmodeBtn && replaceStream(/%DarkmodeComponent%.*%!DarkmodeComponent%/g, ''),
-                /** Loïc */
-                attributes.tableOfContent && replaceStream(/%!?ToCComponent%/g, ''),
-                attributes.tableOfContent && replaceStream(/%ToCList%/g, JSON.stringify(this.pagePaths) ),
-                !attributes.tableOfContent && replaceStream(/%ToCComponent%.*%!ToCComponent%/g, ''),
+                attributes.darkmodeBtn && replaceStream(/%!?DarkmodeComponent%/sg, ''),
+                !attributes.darkmodeBtn && replaceStream(/%DarkmodeComponent%.*%!DarkmodeComponent%/sg, ''),
 
-                /** Zaïd */
+                attributes.tableOfContent && replaceStream(/%!?ToCComponent%/sg, ''),
+                attributes.tableOfContent && replaceStream(/%ToCList%/sg, JSON.stringify(this.pagePaths) ),
+                !attributes.tableOfContent && replaceStream(/%ToCComponent%.*%!ToCComponent%/sg, ''),
+
+                attributes.userAvatar && replaceStream(/%!?AvatarTotoComponent%/sg, ''),
+                !attributes.userAvatar && replaceStream(/%AvatarTotoComponent%.*%!AvatarTotoComponent%/sg, ''),
+
+                attributes.searchBar && replaceStream(/%!?SearchComponent%/sg, ''),
+                !attributes.searchBar && replaceStream(/%SearchComponent%.*%!SearchComponent%/sg, ''),
+
+                attributes.logo && replaceStream(/%!?LogoComponent%/sg, ''),
+                !attributes.logo && replaceStream(/%LogoComponent%.*%!LogoComponent%/sg, ''),
 
                 writeStream,
             ].filter(Boolean);

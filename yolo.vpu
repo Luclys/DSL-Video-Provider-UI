@@ -3,11 +3,11 @@ favicon "public/favicon.ico"
 
 header : {
     logo true
-    title false
+    title true
     tableOfContent true
     searchBar true
-    darkmodeBtn false
-    userAvatar false
+    darkmodeBtn true
+    userAvatar true
 }
 
 page "accueil"
