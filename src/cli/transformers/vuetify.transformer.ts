@@ -112,6 +112,7 @@ export class VuetifyTransformer {
         const destinationPath = join(this.generatedSourceDestination, `/pages/${pageName}.vue`);
         const childrenComponents = page.body.components.map(c => c.$type);
         childrenComponents.forEach(component => this.requiredComponents.add(capitalize(component)));
+        console.log(childrenComponents);
         const template =
             `<template>
   <v-main>
@@ -122,7 +123,7 @@ ${childrenComponents.map(name => `        <${name}/>`).join('\n')}
     </v-container>
   </v-main>
 </template>`;
-
+// ${this.componentClassImport(page.body.components)}
         if (!fs.existsSync(destinationPath)) {
             const distinctChildrenComponents = [...new Set(childrenComponents)];
             const script =
@@ -159,7 +160,15 @@ ${distinctChildrenComponents.map(name => `    ${name},`).join('\n')}
             return {"title": page.name, "link": page.name}
         });
     }
-
+/*
+    private componentClassImport(components: Array<Component>): string {
+        const list = [];
+        components.forEach(component => {
+            switch ()
+        })
+        return childrenComponents.map(name => `        <${name}/>`).join('\n')
+    }
+*/
     private generateRouter() {
         const content =
             `${this.pagePaths.map(page => `import ${page.title} from './pages/${capitalize(page.title)}';`).join('\n')}

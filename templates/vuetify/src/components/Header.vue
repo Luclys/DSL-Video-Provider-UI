@@ -5,7 +5,7 @@
         src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
     >
       <v-menu class="hidden-md-and-up">
-        <v-toolbar-side-icon slot="activator"></v-toolbar-side-icon>
+        <v-app-bar-nav-icon slot="activator"></v-app-bar-nav-icon>
         <v-list>
           <v-list-tile v-for='item in %ToCList%' :key="item.title">
             <v-list-tile-content>
@@ -34,7 +34,7 @@
             v-for='item in %ToCList%'
             :key="item.title"
             :to="item.link"
-            flat
+            text
         >{{ item.title }}
         </v-btn>
       </v-toolbar-items>

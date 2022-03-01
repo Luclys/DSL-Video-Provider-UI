@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  name: "Chat",
+  name: "myApp-Chat",
   data() {
     return {
       newChat: "",
@@ -58,7 +58,6 @@ export default {
     },
   },
   methods: {
-    addMessageFromUser(user, message) {},
     addMessage() {
       this.messages.push({
         id: Date.now(),
