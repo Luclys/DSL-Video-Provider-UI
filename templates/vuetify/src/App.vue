@@ -15,8 +15,6 @@ export default {
     Header,
   },
 
-  data: () => ({
-
-  }),
+  data: () => ({}),
 };
 </script>

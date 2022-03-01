@@ -3,7 +3,7 @@
     <h3 :key="this.ChatTitle">{{ ChatTitle }}</h3>
     <div class="messages">
       <div v-for="mess in messages" :key="mess.id" class="row message">
-        <img class="icon" :src="mess.icon" />
+        <img class="icon" :src="mess.icon"/>
         <span class="userName">{{ mess.user }}</span>
         <span class="messageSeparator"> : </span>
         <span class="userMessage">{{ mess.message }}</span>

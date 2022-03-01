@@ -52,9 +52,6 @@
       <v-spacer></v-spacer>
       <v-switch
           v-model="$vuetify.theme.dark"
-          hint="This toggles the global state of the Vuetify theme"
-          label="Vuetify Theme Dark"
-          persistent-hint
       ></v-switch>
       %!DarkmodeComponent%
 
