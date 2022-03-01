@@ -4,6 +4,7 @@
         dark
         src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
     >
+      %ToCComponent%
       <v-menu class="hidden-md-and-up">
         <v-list>
           <v-list-tile v-for='item in %ToCList%' :key="item.title">
@@ -13,6 +14,7 @@
           </v-list-tile>
         </v-list>
       </v-menu>
+      %!ToCComponent%
 
 
       %LogoComponent%

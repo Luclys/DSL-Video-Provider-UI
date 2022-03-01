@@ -1,0 +1,22 @@
+application "Example 2"
+favicon "public/favicon.ico"
+
+header : {
+    logo false
+    title true
+    tableOfContent true
+    searchBar false
+    darkmodeBtn false
+    userAvatar true
+}
+
+page "accueil"
+    desktop :
+        - row :
+            - carousel 10
+            - catalog "Actualités" horizontal 10
+            - catalog "Films" horizontal 20
+            - catalog "Séries" horizontal 20
+            - catalog "Populaires" horizontal 20
+            - catalog "Action - Aventure" horizontal 20
+            - catalog "Comédie" horizontal 20

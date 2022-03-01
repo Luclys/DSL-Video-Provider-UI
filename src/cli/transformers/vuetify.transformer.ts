@@ -112,7 +112,6 @@ export class VuetifyTransformer {
         const destinationPath = join(this.generatedSourceDestination, `/pages/${pageName}.vue`);
         const childrenComponents = page.body.components.map(c => c.$type);
         childrenComponents.forEach(component => this.requiredComponents.add(capitalize(component)));
-        console.log(childrenComponents);
         const template =
             `<template>
   <v-main>

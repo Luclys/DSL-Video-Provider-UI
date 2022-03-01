@@ -1,9 +1,9 @@
 <template>
   <v-carousel>
     <v-carousel-item
-        v-for="(item, i) in items"
+        v-for="(item, i) in size"
         :key="i"
-        :src="item.src"
+        :src="defaultImages[i % defaultImages.length]"
         reverse-transition="fade-transition"
         transition="fade-transition"
     ></v-carousel-item>
@@ -12,10 +12,17 @@
 
 <script>
 export default {
-  name: 'LeCarousel',
+  name: 'myApp-Carousel',
+  props: {
+    size: {
+      type: Number,
+      required: true,
+    },
+  },
   data() {
     return {
-      items: [
+
+      defaultImages: [
         {
           src: 'https://www.themoviedb.org/t/p/original/h22eEPJpdS47JisaEPevdj48fVT.jpg',
         },

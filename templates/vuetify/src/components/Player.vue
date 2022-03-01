@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: 'app',
+  name: 'myApp-Player',
 
   data() {
     return {
