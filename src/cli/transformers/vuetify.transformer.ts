@@ -47,9 +47,9 @@ export class VuetifyTransformer {
             fs.mkdirSync(pagesFolder, {recursive: true});
         }
 
-        this.generateHeader(app.header);
-
         this.pagePaths = this.extractPagesPath(app.pages);
+
+        this.generateHeader(app.header);
 
         for (const page of app.pages) {
             this.generatePage(page);
@@ -72,14 +72,25 @@ export class VuetifyTransformer {
             const writeStream = fs.createWriteStream(destinationPath);
 
             const pipes = [
-                attributes.title && replaceStream(/%!?TitleComponent%/g, ''),
-                attributes.title && replaceStream(/%Title%/g, this.projectName),
-                !attributes.title && replaceStream(/%TitleComponent%.*%!TitleComponent%/g, ''),
-                attributes.darkmodeBtn && replaceStream(/%!?DarkmodeComponent%/g, ''),
-                !attributes.darkmodeBtn && replaceStream(/%DarkmodeComponent%.*%!DarkmodeComponent%/g, ''),
-                /** Loïc */
+                attributes.title && replaceStream(/%!?TitleComponent%/sg, ''),
+                attributes.title && replaceStream(/%Title%/sg, this.projectName),
+                !attributes.title && replaceStream(/%TitleComponent%.*%!TitleComponent%/sg, ''),
 
-                /** Zaïd */
+                attributes.darkmodeBtn && replaceStream(/%!?DarkmodeComponent%/sg, ''),
+                !attributes.darkmodeBtn && replaceStream(/%DarkmodeComponent%.*%!DarkmodeComponent%/sg, ''),
+
+                attributes.tableOfContent && replaceStream(/%!?ToCComponent%/sg, ''),
+                attributes.tableOfContent && replaceStream(/%ToCList%/sg, JSON.stringify(this.pagePaths)),
+                !attributes.tableOfContent && replaceStream(/%ToCComponent%.*%!ToCComponent%/sg, ''),
+
+                attributes.userAvatar && replaceStream(/%!?AvatarComponent%/sg, ''),
+                !attributes.userAvatar && replaceStream(/%AvatarComponent%.*%!AvatarComponent%/sg, ''),
+
+                attributes.searchBar && replaceStream(/%!?SearchComponent%/sg, ''),
+                !attributes.searchBar && replaceStream(/%SearchComponent%.*%!SearchComponent%/sg, ''),
+
+                attributes.logo && replaceStream(/%!?LogoComponent%/sg, ''),
+                !attributes.logo && replaceStream(/%LogoComponent%.*%!LogoComponent%/sg, ''),
 
                 writeStream,
             ].filter(Boolean);
@@ -92,8 +103,8 @@ export class VuetifyTransformer {
 
     private extractHeaderAttributes(header: Header): IHeaderAttributes {
         return header.attributes
-          .map(ha => <IHeaderAttributes>Object.fromEntries([[ha.name, ha.value === 'true']]))
-          .reduce((previousValue, currentValue) => Object.assign(previousValue, currentValue), {});
+            .map(ha => <IHeaderAttributes>Object.fromEntries([[ha.name, ha.value === 'true']]))
+            .reduce((previousValue, currentValue) => Object.assign(previousValue, currentValue), {});
     }
 
     private generatePage(page: Page): void {
@@ -102,7 +113,7 @@ export class VuetifyTransformer {
         const childrenComponents = page.body.components.map(c => c.$type);
         childrenComponents.forEach(component => this.requiredComponents.add(capitalize(component)));
         const template =
-`<template>
+            `<template>
   <v-main>
     <v-container>
       ${page.body.type === 'row' ? '<v-row>' : '<v-col>'}
@@ -115,7 +126,7 @@ ${childrenComponents.map(name => `        <${name}/>`).join('\n')}
         if (!fs.existsSync(destinationPath)) {
             const distinctChildrenComponents = [...new Set(childrenComponents)];
             const script =
-`<script>
+                `<script>
 ${distinctChildrenComponents.map(name => `import ${name} from '../components/${name}';`).join('\n')}
 
 export default {
@@ -144,16 +155,18 @@ ${distinctChildrenComponents.map(name => `    ${name},`).join('\n')}
 
     private extractPagesPath(pages: Array<Page>): ILink[] {
         //TODO escape chars + edit link
-        return pages.map(page => {return {"name": page.name, "link": page.name}});
+        return pages.map(page => {
+            return {"title": page.name, "link": page.name}
+        });
     }
 
     private generateRouter() {
         const content =
-`${this.pagePaths.map(page => `import ${page.name} from './pages/${capitalize(page.name)}';`).join('\n')}
+            `${this.pagePaths.map(page => `import ${page.title} from './pages/${capitalize(page.title)}';`).join('\n')}
 
 const routes = [
-    { path: '/', component: ${this.pagePaths[0].name} },
-${this.pagePaths.map(page => `    { path: '/${page.link}', component: ${page.name} }`).join(',\n')}
+    { path: '/', component: ${this.pagePaths[0].title} },
+${this.pagePaths.map(page => `    { path: '/${page.link}', component: ${page.title} }`).join(',\n')}
 ]
 
 export default routes;

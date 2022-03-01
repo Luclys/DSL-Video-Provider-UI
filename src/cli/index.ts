@@ -9,9 +9,9 @@ import { generateVuetify } from './generator';
 export const generateAction = async (fileName: string, opts: GenerateOptions): Promise<void> => {
     const model = await extractAstNode<App>(fileName, languageMetaData.fileExtensions, createVideoProviderUiServices());
     await generateVuetify(model, fileName, opts.destination).then(() => {
-        console.log(colors.green(`Grommet code generated successfully`));
+        console.log(colors.green(`Vuetify codegenerated successfully`));
     }).catch(err => {
-        console.error(colors.red(`Grommet code generation failure\n`), err);
+        console.error(colors.red(`Vuetify codegeneration failure\n`), err);
     });
 };
 

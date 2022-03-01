@@ -7,7 +7,7 @@
       <v-menu class="hidden-md-and-up">
         <v-toolbar-side-icon slot="activator"></v-toolbar-side-icon>
         <v-list>
-          <v-list-tile v-for="item in items" :key="item.title">
+          <v-list-tile v-for='item in %ToCList%' :key="item.title">
             <v-list-tile-content>
               <v-list-tile-title>{{ item.title }}</v-list-tile-title>
             </v-list-tile-content>
@@ -15,31 +15,60 @@
         </v-list>
       </v-menu>
 
-      %TitleComponent%<v-toolbar-title>%Title%</v-toolbar-title>%!TitleComponent%
 
-      <v-spacer></v-spacer>
+      %LogoComponent%
+      <v-img
+          src="https://vuejs.org/images/logo.png"
+          max-height="30"
+          max-width="50">
+      </v-img>
+      %!LogoComponent%
 
+      %TitleComponent%
+      <v-toolbar-title>%Title%</v-toolbar-title>
+      %!TitleComponent%
+
+      %ToCComponent%
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn
-            v-for="item in items"
+            v-for='item in %ToCList%'
             :key="item.title"
             :to="item.link"
             flat
-        >{{ item.title }}</v-btn>
+        >{{ item.title }}
+        </v-btn>
       </v-toolbar-items>
+      %!ToCComponent%
 
       <v-spacer></v-spacer>
+
+      %SearchComponent%
+      <v-text-field label="Search"></v-text-field>
+      <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+      %!SearchComponent%
+
       %DarkmodeComponent%
+      <v-spacer></v-spacer>
       <v-switch
           :value="darkmode"
           @change="toggleDarkMode"
-      >
-      </v-switch>
+          v-model="$vuetify.theme.dark"
+          hint="This toggles the global state of the Vuetify theme"
+          label="Vuetify Theme Dark"
+          persistent-hint
+      ></v-switch>
       %!DarkmodeComponent%
 
-      <v-btn icon>
-        <v-icon>mdi-export</v-icon>
-      </v-btn>
+      %AvatarComponent%
+      <v-avatar size="64">
+        <img
+            src="https://cdn.vuetifyjs.com/images/john.jpg"
+            alt="Avatar">
+      </v-avatar>
+      %!AvatarComponent%
+
     </v-toolbar>
   </div>
 </template>
@@ -47,15 +76,5 @@
 <script>
 export default {
   name: 'AppHeader',
-  data () {
-    return {
-      items: [
-        { title: 'Dashboard', icon: 'mdi-view-dashboard' },
-        { title: 'Photos', icon: 'mdi-image' },
-        { title: 'About', icon: 'mdi-help-box' },
-      ],
-      right: null,
-    }
-  },
 }
 </script>

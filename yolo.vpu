@@ -3,16 +3,24 @@ favicon "public/favicon.ico"
 
 header : {
     logo true
-    title false
+    title true
     tableOfContent true
     searchBar true
-    darkmodeBtn false
-    userAvatar false
+    darkmodeBtn true
+    userAvatar true
 }
 
 page "accueil"
     desktop :
         - row :
             - carousel 5
-            - catalog "Le catalogue" grid 4 x 3 // type = Grid | Horizontal | Vertical
-            - catalog "Horizon" horizontal 4
+            //- catalog "Le catalogue" grid 4 x 3 // type = Grid | Horizontal | Vertical
+            //- catalog "Horizon" horizontal 4
+
+page "video"
+    desktop :
+        - row :
+            - carousel 5
+            //- catalog "Le catalogue" grid 4 x 3 // type = Grid | Horizontal | Vertical
+            //- catalog "Horizon" horizontal 4
+            - chat

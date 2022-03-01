@@ -8,6 +8,6 @@ export interface IHeaderAttributes {
 }
 
 export interface ILink {
-  name: string;
+  title: string;
   link: string;
 }
