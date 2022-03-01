@@ -7,7 +7,7 @@
       <v-menu class="hidden-md-and-up">
         <v-toolbar-side-icon slot="activator"></v-toolbar-side-icon>
         <v-list>
-          <v-list-tile v-for="item in menu">
+          <v-list-tile v-for="item in items" :key="item.title">
             <v-list-tile-content>
               <v-list-tile-title>{{ item.title }}</v-list-tile-title>
             </v-list-tile-content>
@@ -21,7 +21,8 @@
 
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn
-            v-for="item in menu"
+            v-for="item in items"
+            :key="item.title"
             :to="item.link"
             flat
         >{{ item.title }}</v-btn>
